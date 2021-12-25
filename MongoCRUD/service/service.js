@@ -25,7 +25,7 @@ module.exports.create = async (req,res)=>{
             'type':req.body.type,
             'quantity':req.body.quantity
         });
-        res.send("Insert successfull\n"+result);
+        res.send(result);
     } catch(err){
         console.log(err);
     }
@@ -59,7 +59,7 @@ module.exports.update = async (req,res)=>{
                 if(err1)
                     console.log(err1);
                 else
-                    res.send("Update successfull\n"+result);
+                    res.send(result);
             }
         );
     } catch(err){
@@ -78,7 +78,7 @@ module.exports.delete = async (req,res)=>{
                 if(err1)
                     console.log(err1);
                 else
-                    res.send("Delete successfull\n"+result);
+                    res.send(result);
             }
         );
     } catch(err){
