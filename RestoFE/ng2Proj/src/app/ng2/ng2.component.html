@@ -1,0 +1,11 @@
+<p>ng2 works!</p>
+<button (click)="initfun()"> button </button>
+<div class="container">
+    <div *ngFor="let datas of data">
+        <div class=" row">
+          <mat-card class="rounded-left col tab border-right">{{datas.name}}</mat-card>
+          <mat-card class="col tab border-right">{{datas.type}}</mat-card>
+          <mat-card class="col tab border-right">{{datas.quantity}}</mat-card>
+        </div>
+      </div>
+</div>
