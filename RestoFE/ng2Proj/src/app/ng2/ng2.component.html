@@ -1,11 +1,15 @@
-<p>ng2 works!</p>
-<button (click)="initfun()"> button </button>
 <div class="container">
-    <div *ngFor="let datas of data">
+    <div *ngFor="let datas of collection">
         <div class=" row">
           <mat-card class="rounded-left col tab border-right">{{datas.name}}</mat-card>
           <mat-card class="col tab border-right">{{datas.type}}</mat-card>
           <mat-card class="col tab border-right">{{datas.quantity}}</mat-card>
+          <button type="button" class="m-0 p-1 ml-2 btn btn-secondary" 
+            (click)="openDialog(datas.name, datas.type, datas.quantity)">Edit</button>
+            <button type="button" class="m-0 p-1 ml-2 btn btn-secondary" 
+            (click)="openDialog(datas.name, datas.type, datas.quantity)">Delete</button>
         </div>
       </div>
+      <button type="button" class="m-2 p-1 ml-2 btn btn-secondary" 
+            (click)="openDialogNew()">Create</button>
 </div>
