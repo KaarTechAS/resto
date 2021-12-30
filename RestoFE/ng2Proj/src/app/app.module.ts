@@ -8,6 +8,8 @@ import { Ng2Component } from './ng2/ng2.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+//import { FileSelectDirective } from 'ng2-file-upload';
+import { FormsModule } from '@angular/forms';
 
 
 import {MatCardModule} from '@angular/material/card';
@@ -30,7 +32,9 @@ import { DialogComponent } from './dialog/dialog.component';
     MatDialogModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    //FileSelectDirective,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,24 @@
 {
     "/resto/read":{
-        "target":"http://localhost:5000",
+        "target":"http://localhost:4500",
+        "secure":false,
+        "changeOrigin": true,
+        "logLevel":"debug"
+    },
+    "/resto/update":{
+        "target":"http://localhost:4500",
+        "secure":false,
+        "changeOrigin": true,
+        "logLevel":"debug"
+    },
+    "/resto/delete":{
+        "target":"http://localhost:4500",
+        "secure":false,
+        "changeOrigin": true,
+        "logLevel":"debug"
+    },
+    "/resto/create":{
+        "target":"http://localhost:4500",
         "secure":false,
         "changeOrigin": true,
         "logLevel":"debug"

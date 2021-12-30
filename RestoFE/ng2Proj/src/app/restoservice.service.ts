@@ -9,10 +9,10 @@ import {HttpClient} from '@angular/common/http';
 export class RestoserviceService {
 
   constructor(private http: HttpClient) { }
-  urlread='http://localhost:4500/resto/read'
-  urlupdate='http://localhost:4500/resto/update'
-  urldelete='http://localhost:4500/resto/delete'
-  urlcreate='http://localhost:4500/resto/create'
+  urlread='/resto/read'
+  urlupdate='/resto/update'
+  urldelete='/resto/delete'
+  urlcreate='/resto/create'
   readResto(){
     try{
       return new Promise((resolve, reject)=>{
@@ -98,5 +98,13 @@ createResto(name: any, type: any, quantity:any){
     return Promise.reject();
   }
 }
+// uploadImage(fileToUpload:File, imagename:string, num:string, price:string){
+//   let formData:FormData = new FormData();
+//   formData.append("file",fileToUpload,fileToUpload.name);
+//   formData.append("Imagename",imagename);
+//   formData.append("Number",num);
+//   formData.append("Price",price);
+//   return this.http.post(this.baseUrl+"UploadImage",formData);  
+// }
   }
 
