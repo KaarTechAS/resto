@@ -138,6 +138,7 @@ module.exports.dwnimg = async (req,res)=>{
                 });
             }
         });
+        res.status(404).send("File Not Found")
     } catch(err){
         console.log(err);
     }
