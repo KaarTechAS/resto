@@ -1,6 +1,8 @@
 var express = require('express');
 const client = require('../config/db_config');
 
+const uploadFile = require("../config/upload");
+
 //Refernece:
 //https://www.youtube.com/watch?v=fbYExfeFsI0
 
@@ -37,7 +39,8 @@ module.exports.read = async (req,res)=>{
         var resultfinal = [];
         // console.log(result);
         await result.forEach(element => {
-            resultfinal.push(element);
+            if(element.file==null)
+                resultfinal.push(element);
             // console.log(element);
         });
         // console.log(resultfinal);
@@ -81,6 +84,60 @@ module.exports.delete = async (req,res)=>{
                     res.send(result);
             }
         );
+    } catch(err){
+        console.log(err);
+    }
+}
+
+module.exports.updimg = async (req,res)=>{
+    try {
+        await uploadFile(req, res);
+    
+        if (req.file == undefined) {
+          return res.status(400).send({ message: "Please upload a file!" });
+        }
+    
+        const result = await client.db("resto").collection("foddet").insertOne({
+            'name':req.body.name,
+            'file':req.file
+        });
+        res.status(200).send({
+          message: "Uploaded the file successfully: " + req.file.originalname,
+        });
+      } catch (err) {
+        console.log(err);
+    
+        if (err.code == "LIMIT_FILE_SIZE") {
+          return res.status(500).send({
+            message: "File size cannot be larger than 2MB!",
+          });
+        }
+    
+        res.status(500).send({
+          message: `Could not upload the file: ${req.file.originalname}. ${err}`,
+        });
+      }
+}
+
+module.exports.dwnimg = async (req,res)=>{
+    try{
+        let namev = req.body.name;
+        const result = await client.db("resto").collection("foddet").find();
+        await result.forEach(element => {
+            if(element.file!=null&&element.name===namev){
+                const fileName = element.file.filename;
+                const pathName = element.file.path;
+                const directoryPath = __dirname + "/uploads/";
+
+                res.download(pathName, fileName, (err) => {
+                    if (err) {
+                        res.status(500).send({
+                            message: "Could not download the file. " + err,
+                        });
+                    }
+                });
+            }
+        });
     } catch(err){
         console.log(err);
     }
