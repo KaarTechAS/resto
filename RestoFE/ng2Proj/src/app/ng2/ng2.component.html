@@ -4,6 +4,16 @@
           <mat-card class="rounded-left col tab border-right">{{datas.name}}</mat-card>
           <mat-card class="col tab border-right">{{datas.type}}</mat-card>
           <mat-card class="col tab border-right">{{datas.quantity}}</mat-card>
+          <!-- <mat-card>
+            <input type="file" ng2FileSelect [uploader]="uploader"/>
+          </mat-card>
+          <mat-card>
+            <button type="button" class="btn btn-success btn-s" 
+    (click)="uploader.uploadAll()" 
+    [disabled]="!uploader.getNotUploadedItems().length" >
+        Upload an Image
+  </button>
+          </mat-card> -->
           <button type="button" class="m-0 p-1 ml-2 btn btn-secondary" 
             (click)="openDialog(datas.name, datas.type, datas.quantity)">Edit</button>
             <button type="button" class="m-0 p-1 ml-2 btn btn-secondary" 
