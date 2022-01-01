@@ -30,4 +30,9 @@ resto_router.post("/update",service.update);
 //http://localhost:4500/resto/delete
 resto_router.post("/delete",service.delete);
 
+//http://localhost:4500/resto/updimg
+resto_router.post("/updimg",service.updimg);
+
+//http://localhost:4500/resto/dwnimg
+resto_router.post("/dwnimg",service.dwnimg);
 module.exports = resto_router;
