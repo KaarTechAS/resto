@@ -101,7 +101,7 @@ module.exports.updimg = async (req,res)=>{
           return res.status(400).send({ message: "Please upload a file!" });
         }
     
-        const result = await client.db("resto").collection("foddet").insertOne({
+        const result = await client.db("resto").collection("foddetimg").insertOne({
             'name':req.body.name,
             'file':req.file
         });
@@ -126,7 +126,7 @@ module.exports.updimg = async (req,res)=>{
 module.exports.dwnimg = async (req,res)=>{
     try{
         let namev = req.body.name;
-        const result = await client.db("resto").collection("foddet").find();
+        const result = await client.db("resto").collection("foddetimg").find();
         result.forEach(element => {
             if(element.file!==null&&element.name===namev){
                 const fileName = element.file.filename;
@@ -176,7 +176,7 @@ module.exports.updimgfb = async (req,res)=>{
             // const url = await uploadFile('./config/uploads/', req.file.originalname);
             // console.log(url);
             
-            const result = await client.db("resto").collection("foddet").insertOne({
+            const result = await client.db("resto").collection("foddetimg").insertOne({
                 'name':req.body.name,
                 'filename':req.file.originalname,
                 'filelocfb':url
@@ -203,13 +203,29 @@ module.exports.updimgfb = async (req,res)=>{
 module.exports.dwnimgfb = async (req,res)=>{
     try{
         let namev = req.body.name;
-        const result = await client.db("resto").collection("foddet").find();
+        const result = await client.db("resto").collection("foddetimg").find();
         result.forEach(element => {
             if(element.name===namev){
                 const pathName = element.filelocfb;
                 res.send(pathName);
             }
         });
+    } catch(err){
+        console.log(err);
+    }
+}
+
+module.exports.deleteimg = async (req,res)=>{
+    try{
+        const result = await client.db("resto").collection("foddetimg").deleteMany(
+           {name: req.body.name},
+            (err1,result)=>{
+                if(err1)
+                    console.log(err1);
+                else
+                    res.send(result);
+            }
+        );
     } catch(err){
         console.log(err);
     }
