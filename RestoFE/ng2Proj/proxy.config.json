@@ -5,6 +5,12 @@
         "changeOrigin": true,
         "logLevel":"debug"
     },
+    "/resto/create":{
+        "target":"http://localhost:4500",
+        "secure":false,
+        "changeOrigin": true,
+        "logLevel":"debug"
+    },
     "/resto/update":{
         "target":"http://localhost:4500",
         "secure":false,
@@ -17,7 +23,13 @@
         "changeOrigin": true,
         "logLevel":"debug"
     },
-    "/resto/create":{
+    "/resto/updimg":{
+        "target":"http://localhost:4500",
+        "secure":false,
+        "changeOrigin": true,
+        "logLevel":"debug"
+    },
+    "/resto/dwnimg":{
         "target":"http://localhost:4500",
         "secure":false,
         "changeOrigin": true,
