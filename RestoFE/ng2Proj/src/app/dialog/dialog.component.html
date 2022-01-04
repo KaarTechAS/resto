@@ -11,6 +11,18 @@
         <label>Quantity</label>
         <input type="text" class="form-control" formControlName="quantity">
     </div>
+    <mat-card>
+        <input type="file" name="photo" ng2FileSelect [uploader]="uploader" />
+        <button type="button" class="btn btn-success btn-s" 
+        (click)="uploader.uploadAll()"
+          [disabled]="!uploader.getNotUploadedItems().length" >
+              Upload an Image
+        </button>
+        <button class="m-1 btn btn-secondary btn-s" (click)="download()">download</button>
+    </mat-card>
+    <mat-card>
+      <img [src]="previewPath " alt="Avatar" class="contribution-image">
+    </mat-card>
     <button (click)="updateRes()" class="m-1 btn btn-primary">Update</button>
     <button (click)="deleteRes()" class="m-1 btn btn-primary">Delete</button>
     <button (click)="createRes()" class="m-1 btn btn-primary">Create</button>
