@@ -35,4 +35,11 @@ resto_router.post("/updimg",service.updimg);
 
 //http://localhost:4500/resto/dwnimg
 resto_router.post("/dwnimg",service.dwnimg);
+
+//http://localhost:4500/resto/updimgfb
+resto_router.post("/updimgfb",service.updimgfb);
+
+//http://localhost:4500/resto/dwnimgfb
+resto_router.post("/dwnimgfb",service.dwnimgfb);
+
 module.exports = resto_router;
