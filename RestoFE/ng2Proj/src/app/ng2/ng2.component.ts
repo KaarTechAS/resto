@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { RestoserviceService } from '../restoservice.service';
 import {MatDialog} from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
+import { ImgdialogComponent } from '../imgdialog/imgdialog.component';
 import { DomSanitizer} from '@angular/platform-browser';
 import { FileUploader } from 'ng2-file-upload';
 const URL = '/resto/updimg';
@@ -67,7 +68,7 @@ openDialog(name:any, type:any, quantity:any){
   });
 }
 openDialogImg(name:any){
-  this.dialog.open(DialogComponent, {
+  this.dialog.open(ImgdialogComponent, {
     width: '700px', height: '1000px',
     data:{
       name

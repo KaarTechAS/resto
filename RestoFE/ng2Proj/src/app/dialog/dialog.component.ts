@@ -21,6 +21,7 @@ data: any
   fval: any
   a: any
   public previewPath: any;
+  
   constructor(private _rs : RestoserviceService, @Inject(MAT_DIALOG_DATA) public dat:any, private sanitizer: DomSanitizer) {
     
     

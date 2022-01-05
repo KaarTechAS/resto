@@ -1,6 +1,7 @@
 <div class="container">
     <div *ngFor="let datas of collection">
         <div class=" row">
+          <mat-card class="col" (click)="openDialogImg(datas.name)"></mat-card>
           <mat-card class="rounded-left col tab border-right">{{datas.name}}</mat-card>
           <mat-card class="col tab border-right">{{datas.type}}</mat-card>
           <mat-card class="col tab border-right">{{datas.quantity}}</mat-card>
