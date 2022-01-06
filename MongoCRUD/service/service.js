@@ -149,9 +149,15 @@ module.exports.dwnimg = async (req,res)=>{
     }
 }
 
+/*
+    REFERNECES: https://piyushgarg.hashnode.dev/uploading-images-to-firebase-storage-with-nodejs
+*/
+
 module.exports.updimgfb = async (req,res)=>{
     try {
+        // console.log(req.body);
         await uploadFile(req, res);
+        // console.log(req.file);
         if (req.file == undefined) {
           return res.status(400).send({ message: "Please upload a file!" });
         }
@@ -162,19 +168,16 @@ module.exports.updimgfb = async (req,res)=>{
         
         const storageRef = admin.storage().bucket(`gs://resto-eca87.appspot.com`);
         (async() => {
-            path='./config/uploads/'+req.file.originalname;
+            path='./config/uploads/'+req.file.filename;
 
             storage = await storageRef.upload(path, {
                     public: true,
-                    destination: `uploads/restoimg/${req.file.originalname}`,
+                    destination: `uploads/restoimg/${req.file.filename}`,
                     metadata: {
                         firebaseStorageDownloadTokens: uuidv4(),
                     }
             });
             let url = storage[0].metadata.mediaLink;
-            // console.log(url);
-            // const url = await uploadFile('./config/uploads/', req.file.originalname);
-            // console.log(url);
             
             const result = await client.db("resto").collection("foddetimg").insertOne({
                 'name':req.body.name,
@@ -203,19 +206,21 @@ module.exports.updimgfb = async (req,res)=>{
 module.exports.dwnimgfb = async (req,res)=>{
     try{
         let namev = req.body.name;
-        const result = await client.db("resto").collection("foddetimg").find();
-        result.forEach(element => {
-            if(element.name===namev){
-                const pathName = element.filelocfb;
+        const result = await client.db("resto").collection("foddetimg").findOne(
+            {name:namev}
+        );
+        // result.forEach(element => {
+            if(result.name===namev){
+                const pathName = result.filelocfb;
                 res.send(pathName);
             }
-        });
+        // });
     } catch(err){
         console.log(err);
     }
 }
 
-module.exports.deleteimg = async (req,res)=>{
+module.exports.deleteimgfb = async (req,res)=>{
     try{
         const result = await client.db("resto").collection("foddetimg").deleteMany(
            {name: req.body.name},
@@ -229,4 +234,63 @@ module.exports.deleteimg = async (req,res)=>{
     } catch(err){
         console.log(err);
     }
+}
+
+module.exports.updateimgfb = async (req,res)=>{
+    try {
+        // console.log(req.body);
+        await uploadFile(req, res);
+        // console.log(req.file);
+        if (req.file == undefined) {
+          return res.status(400).send({ message: "Please upload a file!" });
+        }
+
+        const admin = firebaseAdmin.initializeApp({
+            credential: firebaseAdmin.credential.cert(serviceAccount),
+        });
+        
+        const storageRef = admin.storage().bucket(`gs://resto-eca87.appspot.com`);
+        (async() => {
+            path='./config/uploads/'+req.file.filename;
+
+            storage = await storageRef.upload(path, {
+                    public: true,
+                    destination: `uploads/restoimg/${req.file.filename}`,
+                    metadata: {
+                        firebaseStorageDownloadTokens: uuidv4(),
+                    }
+            });
+            let url = storage[0].metadata.mediaLink;
+            
+            const result = await client.db("resto").collection("foddetimg").updateMany(
+                {name:req.body.name},
+                {$set: {
+                    'filename':req.file.originalname,
+                    'filelocfb':url
+                    }
+                },
+                (err1,result)=>{
+                    if(err1)
+                        console.log(err1);
+                    else
+                        res.send(result);
+                }
+            );
+            res.status(200).send({
+            message: "Uploaded the file successfully: " + req.file.originalname,
+            });
+        })();
+      } catch (err) {
+        console.log(err);
+    
+        if (err.code == "LIMIT_FILE_SIZE") {
+          return res.status(500).send({
+            message: "File size cannot be larger than 2MB!",
+          });
+        }
+    
+        res.status(500).send({
+          message: `Could not upload the file: ${req.file.originalname}. ${err}`,
+        });
+      }
 }
