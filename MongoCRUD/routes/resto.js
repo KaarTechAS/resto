@@ -42,7 +42,10 @@ resto_router.post("/updimgfb",service.updimgfb);
 //http://localhost:4500/resto/dwnimgfb
 resto_router.post("/dwnimgfb",service.dwnimgfb);
 
-//http://localhost:4500/resto/deleteimg
-resto_router.post("/deleteimg",service.deleteimg);
+//http://localhost:4500/resto/deleteimgfb
+resto_router.post("/deleteimgfb",service.deleteimgfb);
+
+//http://localhost:4500/resto/updateimgfb
+resto_router.post("/updateimgfb",service.updateimgfb);
 
 module.exports = resto_router;
