@@ -20,13 +20,15 @@ import {CommonModule} from '@angular/common';
 //import { Subscription } from 'rxjs'
 //import {  FileUploader } from 'ng2-file-upload';
 import { AngularFileUploaderModule } from 'angular-file-uploader';
+import { ImgdialogComponent } from './imgdialog/imgdialog.component';
 //import { FileSelectDirective } from 'ng2-file-upload';
 
 @NgModule({
   declarations: [
     AppComponent,
     Ng2Component,
-    DialogComponent
+    DialogComponent,
+    ImgdialogComponent
   ],
   imports: [
     BrowserModule,

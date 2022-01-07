@@ -34,5 +34,29 @@
         "secure":false,
         "changeOrigin": true,
         "logLevel":"debug"
+    },
+    "/resto/updimgfb":{
+        "target":"http://localhost:4500",
+        "secure":false,
+        "changeOrigin": true,
+        "logLevel":"debug"
+    },
+    "/resto/dwnimgfb":{
+        "target":"http://localhost:4500",
+        "secure":false,
+        "changeOrigin": true,
+        "logLevel":"debug"
+    },
+    "/resto/deleteimgfb":{
+        "target":"http://localhost:4500",
+        "secure":false,
+        "changeOrigin": true,
+        "logLevel":"debug"
+    },
+    "/resto/updateimgfb":{
+        "target":"http://localhost:4500",
+        "secure":false,
+        "changeOrigin": true,
+        "logLevel":"debug"
     }
 }
