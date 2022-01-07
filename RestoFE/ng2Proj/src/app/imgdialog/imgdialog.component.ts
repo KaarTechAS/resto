@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , Inject} from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { RestoserviceService } from '../restoservice.service';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { DomSanitizer} from '@angular/platform-browser';
+import { FileUploader, Headers } from 'ng2-file-upload';
 
 @Component({
   selector: 'app-imgdialog',
@@ -6,13 +11,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./imgdialog.component.scss']
 })
 export class ImgdialogComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
+  fval:any
+  updateValue:any
+  dat:any=null
+  constructor(private _rs : RestoserviceService) { }
+  resItem = new FormGroup({
+    name : new FormControl(),
+    type : new FormControl(),
+    quantity : new FormControl()
+  })
+  async ngOnInit(){
+   
   }
-file:string="https://storage.googleapis.com/download/storage/v1/b/resto-eca87.appspot.com/o/uploads%2Frestoimg%2Ftry.jpg?generation=1641275728157421&alt=media";
-downloadFile=()=>{
-  window.open()
+
+  async createRes(){
+    this.fval=this.resItem.value;
+    this.updateValue= await this._rs.createResto(this.fval.name, this.fval.type, this.fval.quantity)
+
+  }
 }
-}
+
+
+
