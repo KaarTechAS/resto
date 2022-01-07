@@ -1,18 +1,19 @@
 <div class="container">
     <div *ngFor="let datas of collection">
         <div class=" row">
+         
           <mat-card class="rounded-left col tab border-right">{{datas.name}}</mat-card>
           <mat-card class="col tab border-right">{{datas.type}}</mat-card>
           <mat-card class="col tab border-right">{{datas.quantity}}</mat-card>
           
-          <button type="button" class="m-0 p-1 ml-2 btn btn-secondary" 
+          <button type="button" class="m-0 p-1 tabl border-right btn btn-secondary" 
             (click)="openDialog(datas.name, datas.type, datas.quantity)">Edit</button>
-            <button type="button" class="m-0 p-1 ml-2 btn btn-secondary" 
+            <button type="button" class="m-0 p-1 tabl border-right btn btn-secondary" 
             (click)="delete(datas.name)">Delete</button>
-            <button type="button" class="m-0 p-1 ml-2 btn btn-secondary" 
+            <button type="button" class="m-0 p-1 tabl rad border-right btn btn-secondary" 
             (click)="openDialog(datas.name,datas.type, datas.quantity)">Image Upload</button>
         </div>
       </div>
-      <button type="button" class="m-2 p-1 ml-2 btn btn-secondary" 
+      <button type="button" class="m-2 p-1 ml-1 mb-1 btn btn-secondary" 
             (click)="openDialogNew()">Create</button>
 </div>

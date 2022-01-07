@@ -153,6 +153,11 @@ module.exports.dwnimg = async (req,res)=>{
     REFERNECES: https://piyushgarg.hashnode.dev/uploading-images-to-firebase-storage-with-nodejs
 */
 
+
+const admin = firebaseAdmin.initializeApp({
+    credential: firebaseAdmin.credential.cert(serviceAccount),
+});
+
 module.exports.updimgfb = async (req,res)=>{
     try {
         // console.log(req.body);
@@ -162,9 +167,9 @@ module.exports.updimgfb = async (req,res)=>{
           return res.status(400).send({ message: "Please upload a file!" });
         }
 
-        const admin = firebaseAdmin.initializeApp({
-            credential: firebaseAdmin.credential.cert(serviceAccount),
-        });
+        // const admin = firebaseAdmin.initializeApp({
+        //     credential: firebaseAdmin.credential.cert(serviceAccount),
+        // });
         
         const storageRef = admin.storage().bucket(`gs://resto-eca87.appspot.com`);
         (async() => {
@@ -185,7 +190,7 @@ module.exports.updimgfb = async (req,res)=>{
                 'filelocfb':url
             });
             res.status(200).send({
-            message: "Uploaded the file successfully: " + req.file.originalname,
+                message: "Uploaded the file successfully: " + req.file.originalname,
             });
         })();
       } catch (err) {
@@ -210,10 +215,12 @@ module.exports.dwnimgfb = async (req,res)=>{
             {name:namev}
         );
         // result.forEach(element => {
+            if(result!=null){
             if(result.name===namev){
                 const pathName = result.filelocfb;
                 res.send(pathName);
             }
+        }
         // });
     } catch(err){
         console.log(err);
@@ -244,11 +251,12 @@ module.exports.updateimgfb = async (req,res)=>{
         if (req.file == undefined) {
           return res.status(400).send({ message: "Please upload a file!" });
         }
-
-        const admin = firebaseAdmin.initializeApp({
-            credential: firebaseAdmin.credential.cert(serviceAccount),
-        });
         
+
+        // const admin = firebaseAdmin.initializeApp({
+        //     credential: firebaseAdmin.credential.cert(serviceAccount),
+        // });
+
         const storageRef = admin.storage().bucket(`gs://resto-eca87.appspot.com`);
         (async() => {
             path='./config/uploads/'+req.file.filename;
@@ -272,8 +280,8 @@ module.exports.updateimgfb = async (req,res)=>{
                 (err1,result)=>{
                     if(err1)
                         console.log(err1);
-                    else
-                        res.send(result);
+                    // else
+                    //     res.send(result);
                 }
             );
             res.status(200).send({

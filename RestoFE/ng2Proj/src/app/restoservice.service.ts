@@ -18,6 +18,53 @@ export class RestoserviceService {
   urlcreate='/resto/create'
   urluploadImg='/resto/updimg';
   urldownImg='/resto/dwnimg'
+  urldwnImgfb='/resto/dwnimgfb'
+  urldelImgfb='/resto/deleteimgfb'
+
+  deleteImgfb(name:any){
+    try{
+      return new Promise((resolve, reject)=>{
+        console.log(name);
+        
+        this.http.post(this.urldelImgfb,{name})
+        .subscribe(
+          res =>{
+            return resolve(res)
+          },
+          err => {
+            return reject(err);
+          }
+        );
+      });
+    } catch(err)
+    {
+      return Promise.reject();
+    }
+  }
+
+  dwnImgfb(name: any){
+  
+    try{
+      return new Promise((resolve, reject)=>{
+        
+        console.log(name,"service");
+        
+        this.http.post(this.urldwnImgfb,{'name':name},{responseType: 'text' })
+        .subscribe(
+          res =>{
+            console.log(res)
+            return resolve(res)
+          },
+          err => {
+            return reject(err);
+          }
+        );
+      });
+    } catch(err)
+    {
+      return Promise.reject();
+    }
+  }
   dwnldResto(name:any){
    
     try{
