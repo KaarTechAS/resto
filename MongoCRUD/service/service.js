@@ -29,7 +29,8 @@ module.exports.create = async (req,res)=>{
         const result = await client.db("resto").collection("foddet").insertOne({
             'name':req.body.name,
             'type':req.body.type,
-            'quantity':req.body.quantity
+            'quantity':req.body.quantity,
+            'path':''
         });
         res.send(result);
     } catch(err){
@@ -189,6 +190,16 @@ module.exports.updimgfb = async (req,res)=>{
                 'filename':req.file.originalname,
                 'filelocfb':url
             });
+
+            const result1 = await client.db("resto").collection("foddet").updateMany(
+                {name: req.body.name},
+                 {$set: {path: url}},
+                 (err1,result1)=>{
+                     if(err1)
+                         console.log(err1);
+                 }
+             );
+
             res.status(200).send({
                 message: "Uploaded the file successfully: " + req.file.originalname,
             });
@@ -232,12 +243,24 @@ module.exports.deleteimgfb = async (req,res)=>{
         const result = await client.db("resto").collection("foddetimg").deleteMany(
            {name: req.body.name},
             (err1,result)=>{
-                if(err1)
+                if(err1){
                     console.log(err1);
-                else
-                    res.send(result);
+                    res.send(err1);
+                }
             }
         );
+        
+        const result1 = await client.db("resto").collection("foddet").updateMany(
+            {name: req.body.name},
+             {$set: {path: ''}},
+             (err1,result1)=>{
+                if(err1){
+                    console.log(err1);
+                    res.send(err1);
+                }
+             }
+         );
+         res.send('File Removed Successfully!');
     } catch(err){
         console.log(err);
     }
@@ -277,13 +300,33 @@ module.exports.updateimgfb = async (req,res)=>{
                     'filelocfb':url
                     }
                 },
-                (err1,result)=>{
-                    if(err1)
+                async (err1,result)=>{
+                    if(err1){
                         console.log(err1);
-                    // else
-                    //     res.send(result);
+                        res.send(err1);
+                    }
+                    // console.log(result);
+                    if(result.modifiedCount==0){
+                        const result12 = await client.db("resto").collection("foddetimg").insertOne({
+                            'name':req.body.name,
+                            'filename':req.file.originalname,
+                            'filelocfb':url
+                        });
+                    }
                 }
             );
+
+            const result1 = await client.db("resto").collection("foddet").updateMany(
+                {name: req.body.name},
+                 {$set: {path: url}},
+                 (err1,result1)=>{
+                    if(err1){
+                        console.log(err1);
+                        res.send(err1);
+                    }
+                 }
+             );
+
             res.status(200).send({
             message: "Uploaded the file successfully: " + req.file.originalname,
             });
