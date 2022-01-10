@@ -1,17 +1,21 @@
-import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {FileSelectDirective,FileUploader} from 'ng2-file-upload';
-import 'rxjs/Rx';
-import { Observable } from 'rxjs/Observable';
+import { Injectable, EventEmitter } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import { Subscription } from 'rxjs/internal/Subscription';
+import {Subject} from 'rxjs/Subject';
+
 @Injectable({
   providedIn: 'root'
 })
 export class RestoserviceService {
+  private subj = new Subject<any>();
+  obs$ = this.subj.asObservable();
   
-  
-  //uploader:FileUploader=new FileUploader({url:this.urluploadImg})
-  constructor(private http: HttpClient) { }
 
+  constructor(private http: HttpClient, ) { }
+  
+  callMethod(){
+    this.subj.next();
+  }
   urlread='/resto/read'
   urlupdate='/resto/update'
   urldelete='/resto/delete'
@@ -24,8 +28,6 @@ export class RestoserviceService {
   deleteImgfb(name:any){
     try{
       return new Promise((resolve, reject)=>{
-        console.log(name);
-        
         this.http.post(this.urldelImgfb,{name})
         .subscribe(
           res =>{
@@ -46,10 +48,7 @@ export class RestoserviceService {
   
     try{
       return new Promise((resolve, reject)=>{
-        
-        console.log(name,"service");
-        
-        this.http.post(this.urldwnImgfb,{'name':name},{responseType: 'text' })
+         this.http.post(this.urldwnImgfb,{'name':name},{responseType: 'text' })
         .subscribe(
           res =>{
             console.log(res)
@@ -69,13 +68,10 @@ export class RestoserviceService {
    
     try{
       return new Promise((resolve, reject)=>{
-        console.log(name);
         
         this.http.post(this.urldownImg,{name})
         .subscribe(
           res =>{
-            console.log(res);
-            
             return resolve(res)
           },
           err => {
@@ -87,22 +83,11 @@ export class RestoserviceService {
     {
       return Promise.reject();
     }
-      
-        // var body={name:nam}
-        // console.log(body);
-        
-        // this.http.post(this.urldownImg,body,{
-        //   responseType:'blob',
-        //   headers:new HttpHeaders().append('Content-Type','application/json')
-        // })
-        
   }
   readResto(){
     try{
       return new Promise((resolve, reject)=>{
-        console.log("success");
-        
-        this.http.post(this.urlread,{})
+          this.http.post(this.urlread,{})
         .subscribe(
           res =>{
             return resolve(res)
@@ -120,9 +105,7 @@ export class RestoserviceService {
 
 async updateResto(name: any, quantity: any){
   try{
-    return new Promise((resolve, reject)=>{
-      console.log("success");
-      
+    return new Promise((resolve, reject)=>{   
       this.http.post(this.urlupdate,{name, quantity})
       .subscribe(
         res =>{
@@ -147,9 +130,7 @@ async updateResto(name: any, quantity: any){
 deleteResto(name: any){
   try{
     return new Promise((resolve, reject)=>{
-      console.log("ss",name);
-      
-      this.http.post(this.urldelete,{name})
+         this.http.post(this.urldelete,{name})
       .subscribe(
         res =>{
           console.log(res)
@@ -168,8 +149,6 @@ deleteResto(name: any){
 createResto(name: any, type: any, quantity:any){
   try{
     return new Promise((resolve, reject)=>{
-      console.log("ss",name);
-      
       this.http.post(this.urlcreate,{name, type, quantity})
       .subscribe(
         res =>{
@@ -186,31 +165,31 @@ createResto(name: any, type: any, quantity:any){
     return Promise.reject();
   }
 }
-uploadFile(img: File, name:any){
-  try{
-    console.log(img);
+// uploadFile(img: File, name:any){
+//   try{
+//     console.log(img);
     
-    return new Promise((resolve, reject)=>{
-      this.http.post(this.urluploadImg,{name,img})
-      .subscribe(
-        res =>{
-          console.log(res)
-          return resolve(res)
-        },
-        err => {
-          return reject(err);
-        }
-      );
-    });
-  } catch(err)
-  {
-    return Promise.reject();
-  }
-}
-postFile(name:any, fileToUpload:File){
-const formData: FormData =new FormData();
-formData.append('fileKey',fileToUpload,fileToUpload.name)
-return this.http
-.post(this.urluploadImg, formData, name )
-}
+//     return new Promise((resolve, reject)=>{
+//       this.http.post(this.urluploadImg,{name,img})
+//       .subscribe(
+//         res =>{
+//           console.log(res)
+//           return resolve(res)
+//         },
+//         err => {
+//           return reject(err);
+//         }
+//       );
+//     });
+//   } catch(err)
+//   {
+//     return Promise.reject();
+//   }
+// }
+// postFile(name:any, fileToUpload:File){
+// const formData: FormData =new FormData();
+// formData.append('fileKey',fileToUpload,fileToUpload.name)
+// return this.http
+// .post(this.urluploadImg, formData, name )
+// }
 }
