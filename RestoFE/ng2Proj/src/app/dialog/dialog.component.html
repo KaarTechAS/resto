@@ -4,12 +4,12 @@
             <mat-card>
                 <span *ngIf='file==null'>
                     <picture>
-                        <img src='../../assets/upload.png' class="m-3 mr-5 ml-0" style="width:8rem" />
-                        <input type="file" class="m-0 p-0" ng2FileSelect [uploader]="uploader" />
+                        <img src='{{thumb}}' class="m-3 mr-5 ml-0" style="width:8rem" />
+                        <div class="p-1"><input type="file" class="m-0 p-0" ng2FileSelect [uploader]="uploader" /></div>
                     </picture>
                 </span>
-                <span><img src="{{file}}" class="imgsize"></span>
-                <span *ngIf='file!=null'>
+                <span><img src="{{file}}" class="m-1 imgsize"></span>
+                <span class="m-1" *ngIf='file!=null' >
                     <input type="file" class="m-0 p-0" ng2FileSelect [uploader]="uploaderUpdate" />
                 </span>
                 <span><img [src]="previewPath" class="ml-1" style="width:10rem"></span>
@@ -20,9 +20,9 @@
                     Upload an Image
                 </button>
                 <hr><button class="m-1 btn btn-info btn-s" (click)="uploaderUpdate.uploadAll()"
-                [disabled]="!uploader.getNotUploadedItems().length">Update</button>
+                    [disabled]="!uploaderUpdate.getNotUploadedItems().length">Update</button>
                 <button class="m-1 btn btn-danger btn-s" (click)="deleteFile()">Delete</button>
-               
+
             </mat-card>
             <label>Item</label>
             <input type="text" class="form-control" formControlName="name">
@@ -35,7 +35,7 @@
             <label>Quantity</label>
             <input type="text" class="form-control" formControlName="quantity">
         </div>
-        
+
         <button (click)="updateRes()" class="m-1 btn btn-primary">Update</button>
     </div>
 </form>
