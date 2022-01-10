@@ -42,6 +42,9 @@ resto_router.post("/updimgfb",service.updimgfb);
 //http://localhost:4500/resto/dwnimgfb
 resto_router.post("/dwnimgfb",service.dwnimgfb);
 
+//http://localhost:4500/resto/readwithImg
+// resto_router.post("/readwithImg",service.readwithImg);
+
 //http://localhost:4500/resto/deleteimgfb
 resto_router.post("/deleteimgfb",service.deleteimgfb);
 
