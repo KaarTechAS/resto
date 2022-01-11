@@ -24,12 +24,11 @@ export class DialogComponent implements OnInit {
   resfromfb: any
   finalid: any
   apiValues: any
-  defaultImg = "./app/assets/upload.png"
   file: any
   updateValue: any
   name: any
   fval: any
-  a: any
+  
   public previewPath: any;
 
   constructor(private _rs: RestoserviceService, @Inject(MAT_DIALOG_DATA) public dat: any, private sanitizer: DomSanitizer) { }
