@@ -60,11 +60,13 @@ export class DialogComponent implements OnInit {
     this.uploader.onCompleteItem = (item: any, response: any, status: any) => {
       console.log('ImageUpload:uploaded:', item, status, response);
       alert('File uploaded successfully');
-      this.reloadImg()
+      this.reloadImg();
+      this._rs.callMethod();
     };
     this.uploaderUpdate.onAfterAddingFile = (file) => { this.previewPath = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(file._file))) }
     this.uploaderUpdate.onCompleteItem = (item: any, response: any, status: any) => {
-      this.reloadImg()
+      this.reloadImg();
+      this._rs.callMethod();
     }
 
     console.log(this.resItem.value.name);
@@ -89,8 +91,8 @@ export class DialogComponent implements OnInit {
     this.ngOnInit();
   }
   async deleteFile() {
-    console.log(this.resItem.value.name);
     var dlt = await this._rs.deleteImgfb(this.resItem.value.name);
-    this.ngOnInit()
+    this.reloadImg();
+    this._rs.callMethod();
   }
 }
