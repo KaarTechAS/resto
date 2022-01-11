@@ -1,10 +1,11 @@
 <div class="container">
   <div *ngFor="let datas of collection; let i=index">
     <div class=" row">
+      <span *ngIf="datas.path!='' "><img src="{{datas.path}}" class="m-1 rounded-circle" style="width:3rem; height:3rem"></span>
+      <span *ngIf="datas.path=='' "><img src="{{thumb}}" class="m-1 rounded-circle" style="width:3rem; height:3rem"></span>
       <mat-card class="rounded-left col tab border-right">{{datas.name}}</mat-card>
       <mat-card class="col tab border-right">{{datas.type}}</mat-card>
       <mat-card class="col tab border-right">{{datas.quantity}}</mat-card>
-      <mat-card class="col tab border-right">{{yourMethod(datas.name)}}</mat-card>
       <button type="button" class="m-0 p-1 tabl border-right btn btn-secondary"
         (click)="openDialog(datas.name, datas.type, datas.quantity)">Edit</button>
       <button type="button" class="m-0 p-1 tabl border-right btn btn-secondary"

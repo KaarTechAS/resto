@@ -12,48 +12,25 @@ import { ImgdialogComponent } from '../imgdialog/imgdialog.component';
 
 export class Ng2Component implements OnInit {
   @Output() event1 = new EventEmitter<any>()
-  a: any
   collection: any
   updatedValue: any
   subsVar: any
+  thumb = '../../assets/upload.png'
 
   constructor(private _resto: RestoserviceService, public dialog: MatDialog) { }
 
   async ngOnInit() {
     this.collection = await this._resto.readResto();
-    
-    
     this._resto.obs$.subscribe(() => {
       this.reloadPage();
     })
     console.log(this.collection);
   }
-  public generateArray(level: any): Array<any> {
-    console.log(level)
-    let stars: any[];
-    stars = [1, 2, 3]
-    return stars;
-  }
-
-
 
   async reloadPage() {
     this.collection = await this._resto.readResto();
   }
 
-
-  async yourMethod(name: any) {
-    console.log("log", name);
-    //this.a=await this.collection._resto.dwnImgfb(); 
-  }
-  name = 1
-  public show: boolean = false
-  toggle() {
-    this.show = !this.show
-  }
-  log(name: any) {
-    console.log(name);
-  }
   openDialog(name: any, type: any, quantity: any) {
 
     this.dialog.open(DialogComponent, {
