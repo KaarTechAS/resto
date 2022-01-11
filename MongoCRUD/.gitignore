@@ -1,1 +1,3 @@
 /node_modules
+**/config/uploads/*.jpg
+**/config/uploads/*.jpeg
