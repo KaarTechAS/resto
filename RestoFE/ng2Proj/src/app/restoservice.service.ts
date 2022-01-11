@@ -28,13 +28,18 @@ export class RestoserviceService {
   deleteImgfb(name:any){
     try{
       return new Promise((resolve, reject)=>{
-        this.http.post(this.urldelImgfb,{name})
+        this.http.post(this.urldelImgfb,{name},{responseType: 'text' })
         .subscribe(
           res =>{
             return resolve(res)
+            console.log(res);
+            
           },
           err => {
+            console.log(err);
+            
             return reject(err);
+            
           }
         );
       });
